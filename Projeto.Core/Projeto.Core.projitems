@@ -11,8 +11,10 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Entity\Cliente.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entity\Tarefa.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)entity\Usuario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Infrastructure\Database\IEntity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Infrastructure\Exceptions\BusinessException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\UsuarioService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\TarefaService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ClienteService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Infrastructure\Database\ICrudService.cs" />

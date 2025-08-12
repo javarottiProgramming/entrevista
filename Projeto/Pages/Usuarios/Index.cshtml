@@ -1,0 +1,54 @@
+﻿@page
+@model Projeto.Pages.Usuarios.IndexModel
+@{
+}
+<div class="row">
+    <div class="col-5">
+        <h1>👨‍👨‍👦 Cadastro de Usuarios</h1>
+    </div>
+    <div style="align-content: center;" class="col-2">
+        <a asp-page="./Insert" class="btn btn-primary">
+            <i class="fa fa-edit">NOVO</i>
+        </a>
+    </div>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="row">
+
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    </div>
+}
+
+<div class="row">
+
+
+    <table class="table">
+        <tr>
+            <th>Login</th>
+            <th>Nome</th>
+            <th>Administrador?</th>
+            <th>Ativo?</th>
+        </tr>
+        @foreach (var item in Model.Usuarios)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Login)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Administrador)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ativo)
+                </td>
+            </tr>
+        }
+    </table>
+</div>

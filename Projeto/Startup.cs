@@ -46,6 +46,7 @@ namespace Projeto
 
             services.AddScoped<ICrudService<Tarefa>, TarefaService>();
             services.AddScoped<ICrudService<Cliente>, ClienteService>();
+            services.AddScoped<ICrudService<Usuario>, UsuarioService>();
             services.AddSingleton(new DatabaseConnection("banco.db"));
         }
 

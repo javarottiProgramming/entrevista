@@ -5,7 +5,6 @@ using Projeto.Core.Infrastructure.Exceptions;
 using Projeto.Data.SQLite;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Data.SQLite;
 using System.Linq;
 

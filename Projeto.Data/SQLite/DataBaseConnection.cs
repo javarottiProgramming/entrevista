@@ -16,9 +16,9 @@ namespace Projeto.Data.SQLite
             if (!System.IO.File.Exists(databaseName))
             {
                 SQLiteConnection.CreateFile(databaseName);
-                EnsureDatabaseExists();
             }
 
+            EnsureDatabaseExists();
 
         }
 
@@ -78,19 +78,19 @@ namespace Projeto.Data.SQLite
             //    connection.Execute("INSERT INTO migration VALUES('m3')");
             //}
 
-            //if (!migrations.Contains("m4"))
-            //{
-            //    connection.Execute(
-            //        @"CREATE TABLE usuario (
-            //           id INTEGER PRIMARY KEY AUTOINCREMENT,
-            //           login TEXT NOT NULL,
-            //           senha TEXT NOT NULL,
-            //           nome TEXT NOT NULL,
-            //           administrador BOOLEAN NOT NULL,
-            //           ativo BOOLEAN NOT NULL
-            //        )");
-            //    connection.Execute("INSERT INTO migration VALUES('m4')");
-            //}
+            if (!migrations.Contains("m4"))
+            {
+                connection.Execute(
+                    @"CREATE TABLE usuario (
+                       id INTEGER PRIMARY KEY AUTOINCREMENT,
+                       login TEXT NOT NULL,
+                       senha TEXT NOT NULL,
+                       nome TEXT NOT NULL,
+                       administrador BOOLEAN NOT NULL,
+                       ativo BOOLEAN NOT NULL
+                    )");
+                connection.Execute("INSERT INTO migration VALUES('m4')");
+            }
 
             //if (!migrations.Contains("m5"))
             //{
@@ -136,6 +136,22 @@ namespace Projeto.Data.SQLite
                     });
 
                 connection.Execute("INSERT INTO migration VALUES('seed1')");
+            }
+
+            if (!migrations.Contains("seed2"))
+            {
+
+
+                string sql = "INSERT INTO usuario (login, senha, nome, administrador, ativo) " +
+                    "Values (@Login, @Senha, @Nome, @Administrador, @Ativo);";
+
+                connection.Execute(sql,
+                    new[]
+                    {
+                        new Usuario("admin", "admin", "admin", true, true)
+                    });
+
+                connection.Execute("INSERT INTO migration VALUES('seed2')");
             }
 
             if (!migrations.Contains("tarefa"))
