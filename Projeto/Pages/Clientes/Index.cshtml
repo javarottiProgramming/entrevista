@@ -1,0 +1,67 @@
+﻿@page
+@model Projeto.Pages.Clientes.IndexModel
+@{
+}
+<div class="row">
+    <div class="col-5">
+        <h1>👨‍👨‍👦 Cadastro de Clientes</h1>
+    </div>
+    <div style="align-content: center;" class="col-2">
+        <a asp-page="./Insert" class="btn btn-primary">
+            <i class="fa fa-edit">NOVO</i>
+        </a>
+    </div>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="row">
+
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    </div>
+}
+
+<div class="row">
+
+
+    <table class="table">
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Data de Nascimento</th>
+            <th>Telefone</th>
+            <th>Cidade</th>
+            <th>Gênero</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.Clientes)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataNascimento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cidade)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genero)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">✏</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">❌</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
