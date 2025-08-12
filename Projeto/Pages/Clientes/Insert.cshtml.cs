@@ -39,12 +39,14 @@ namespace Projeto.Pages.Clientes
                 _crudService.Insert(this.Cliente);
 
                 TempData["SuccessMessage"] = "Cliente cadastrado com sucesso!";
+                _logger.LogInformation("Cliente cadastrado com sucesso");
 
                 return RedirectToPage("./Index");
             }
             catch (System.Exception ex)
             {
                 this.Erro = ex.Message;
+                _logger.LogError(ex, "Erro ao cadastrar cliente");
             }
 
             return Page();

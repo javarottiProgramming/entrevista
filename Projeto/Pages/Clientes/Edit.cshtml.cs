@@ -40,11 +40,14 @@ namespace Projeto.Pages.Clientes
 
                 TempData["SuccessMessage"] = "Cliente atualizado com sucesso!";
 
+                _logger.LogInformation("Cliente com ID {Id} atualizado com sucesso", this.Cliente.Id);
+
                 return RedirectToPage("./Index");
             }
             catch (System.Exception ex)
             {
                 this.Erro = ex.Message;
+                _logger.LogError(ex, "Erro ao atualizar cliente com ID {Id}", this.Cliente.Id);
             }
 
             return Page();

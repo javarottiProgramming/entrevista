@@ -21,15 +21,16 @@ namespace Projeto.Core.Services
         }
 
         /// <summary>
-        /// Método para validar as regras de negócio antes de inserir ou atualizar um cliente.
+        /// Método para validar as regras de negócio antes de inserir ou atualizar  um cliente.
         /// </summary>
         /// <param name="entity"></param>
         /// <exception cref="BusinessException"></exception>
         private void Validate(Cliente entity)
         {
+          
             var cliente = _connection.Query<Cliente>(
-                "SELECT id, nome, data_nascimento as dataNascimento, email, telefone, cidade, genero FROM cliente WHERE email = @Email",
-                new { Email = entity.Email }).FirstOrDefault();
+                "SELECT email FROM cliente WHERE email = @Email and id <> @Id",
+                new { entity.Email, entity.Id }).FirstOrDefault();
 
             if( cliente != null && cliente.Email == entity.Email)
             {
