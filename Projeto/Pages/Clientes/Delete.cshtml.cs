@@ -27,8 +27,6 @@ namespace Projeto.Pages.Clientes
 
         public void OnGet(int id)
         {
-            using var connection = new SQLiteConnection($"Data Source=banco.db");
-
             this.Cliente = _crudService.GetById(id);
         }
 
@@ -45,12 +43,13 @@ namespace Projeto.Pages.Clientes
 
                 TempData["SuccessMessage"] = "Cliente deletado com sucesso!";
 
+                _logger.LogInformation("Cliente com ID {Id} deletado com sucesso", id);
                 return RedirectToPage("./Index");
             }
             catch (System.Exception ex)
             {
-
                 this.Erro = ex.Message;
+                _logger.LogError(ex, "Erro ao deletar cliente com ID {Id}", id);
             }
 
             return Page();

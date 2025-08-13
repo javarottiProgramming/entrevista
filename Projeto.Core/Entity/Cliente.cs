@@ -1,14 +1,16 @@
 ﻿using Projeto.Core.Infrastructure.Database;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace Projeto.Core.Entity
 {
     public class Cliente : IEntity
     {
         public int Id { get; set; }
+
+        [Required(ErrorMessage = "Campo obrigatório")]
+        [Display(Name = "Usuário Responsável")]
+        public int UsuarioResponsavelId { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatório")]
         [MaxLength(100, ErrorMessage = "O limite máximo de caracteres para o campo foi atingido.")]
