@@ -26,7 +26,6 @@ namespace Projeto.Core.Services
         /// <exception cref="BusinessException"></exception>
         private void Validate(Cliente entity)
         {
-          
             var cliente = _connection.Query<Cliente>(
                 "SELECT email FROM cliente WHERE email = @Email and id <> @Id",
                 new { entity.Email, entity.Id }).FirstOrDefault();
@@ -44,24 +43,24 @@ namespace Projeto.Core.Services
 
         public Cliente GetById(int id)
         {
-            return _connection.Query<Cliente>("SELECT id, nome, data_nascimento as dataNascimento, email, telefone, cidade, genero FROM cliente where id = @id", new { id }).First();
+            return _connection.Query<Cliente>("SELECT id, usuario_responsavel_id as UsuarioResponsavelId, nome, data_nascimento as dataNascimento, email, telefone, cidade, genero FROM cliente where id = @id", new { id }).First();
         }
 
         public void Insert(Cliente entity)
         {
             Validate(entity);
-            _connection.Execute("INSERT INTO cliente (nome, data_nascimento, email, telefone, cidade, genero) Values (@Nome, @DataNascimento, @Email, @Telefone, @Cidade, @Genero);", entity);
+            _connection.Execute("INSERT INTO cliente (usuario_responsavel_id, nome, data_nascimento, email, telefone, cidade, genero) Values (@UsuarioResponsavelId, @Nome, @DataNascimento, @Email, @Telefone, @Cidade, @Genero);", entity);
         }
 
         public void Update(Cliente entity)
         {
             Validate(entity);
-            _connection.Execute("UPDATE cliente SET nome = @Nome, email = @Email, data_nascimento = @DataNascimento, telefone = @Telefone, cidade = @Cidade, genero = @Genero WHERE id = @Id", entity);
+            _connection.Execute("UPDATE cliente SET usuario_responsavel_id = @UsuarioResponsavelId, nome = @Nome, email = @Email, data_nascimento = @DataNascimento, telefone = @Telefone, cidade = @Cidade, genero = @Genero WHERE id = @Id", entity);
         }
 
         public List<Cliente> GetAll()
         {
-            return _connection.Query<Cliente>("SELECT id, nome, data_nascimento as dataNascimento, email, telefone, cidade, genero FROM cliente")
+            return _connection.Query<Cliente>("SELECT id, usuario_responsavel_id as UsuarioResponsavelId, nome, data_nascimento as dataNascimento, email, telefone, cidade, genero FROM cliente")
                 .ToList();
         }
 

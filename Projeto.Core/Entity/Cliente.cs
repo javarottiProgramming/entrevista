@@ -9,6 +9,10 @@ namespace Projeto.Core.Entity
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatório")]
+        [Display(Name = "Usuário Responsável")]
+        public int UsuarioResponsavelId { get; set; }
+
+        [Required(ErrorMessage = "Campo obrigatório")]
         [MaxLength(100, ErrorMessage = "O limite máximo de caracteres para o campo foi atingido.")]
         [Display(Name= "Nome")]
         public string Nome { get; set; }

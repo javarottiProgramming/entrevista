@@ -71,13 +71,6 @@ namespace Projeto.Data.SQLite
                 connection.Execute("INSERT INTO migration VALUES('m3')");
             }
 
-            //if(!migrations.Contains("m3"))
-            //{
-            //    connection.Execute(
-            //        @"ALTER TABLE cliente ADD usuario_responsavel INTEGER");
-            //    connection.Execute("INSERT INTO migration VALUES('m3')");
-            //}
-
             if (!migrations.Contains("m4"))
             {
                 connection.Execute(
@@ -92,30 +85,13 @@ namespace Projeto.Data.SQLite
                 connection.Execute("INSERT INTO migration VALUES('m4')");
             }
 
-            //if (!migrations.Contains("m5"))
-            //{
-            //    connection.Execute(
-            //        @"CREATE TABLE log (
-            //           id INTEGER PRIMARY KEY AUTOINCREMENT,
-            //           data_hora DATETIME NOT NULL,
-            //           usuario_id INTEGER NOT NULL,
-            //           acao TEXT NOT NULL,
-            //           tabela TEXT NOT NULL,
-            //           registro_id INTEGER NOT NULL
-            //        )");
-            //    connection.Execute("INSERT INTO migration VALUES('m5')");
-            //}
+            if (!migrations.Contains("m5"))
+            {
+                connection.Execute(
+                    @"ALTER TABLE cliente ADD usuario_responsavel_id INTEGER REFERENCES usuario(id)");
 
-            //if(!migrations.Contains("m6"))
-            //{
-            //    connection.Execute(
-            //        @"CREATE TABLE usuario_cliente (
-            //           id INTEGER PRIMARY KEY AUTOINCREMENT,
-            //           usuario_id INTEGER NOT NULL,
-            //           cliente_id INTEGER NOT NULL
-            //        )");
-            //    connection.Execute("INSERT INTO migration VALUES('m6')");
-            //}
+                connection.Execute("INSERT INTO migration VALUES('m5')");
+            }
 
             if (!migrations.Contains("seed1"))
             {
