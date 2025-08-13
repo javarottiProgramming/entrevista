@@ -26,7 +26,7 @@ namespace Projeto.Core.Services
 
         public List<Usuario> GetAll()
         {
-            return _connection.Query<Usuario>("SELECT id, login, nome, administrador, ativo FROM usuario")
+            return _connection.Query<Usuario>("SELECT id, login, senha, nome, administrador, ativo FROM usuario")
               .ToList();
         }
 

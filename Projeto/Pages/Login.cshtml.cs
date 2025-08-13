@@ -3,14 +3,23 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Projeto.Core.Entity;
+using Projeto.Core.Infrastructure.Database;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Projeto.Pages
 {
+    [ValidateAntiForgeryToken]
     public class LoginModel : PageModel
     {
+
+        private readonly ILogger<LoginModel> _logger;
+        private readonly ICrudService<Usuario> _crudService;
+
         [BindProperty]
         public string UserName { get; set; }
 
@@ -19,30 +28,34 @@ namespace Projeto.Pages
 
         public string Message { get; set; }
 
-        private const string _USERNAME = "admin";
-        private const string _PASSWORD = "admin";
-
-        public LoginModel()
+        public LoginModel(ILogger<LoginModel> logger, ICrudService<Usuario> crudService)
         {
+            _logger = logger;
+            _crudService = crudService;
         }
 
         public async Task OnGet()
         {
-            UserName = _USERNAME;
-            Password = _PASSWORD;
 
-            await HttpContext.SignOutAsync();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
+            var usuarios = _crudService.GetAll();
+            var usuario = usuarios.FirstOrDefault(u => u.Login == UserName && u.Senha == Password);
 
-
-            if (UserName == _USERNAME && Password == _PASSWORD)
+            if (usuario != null && usuario.Id > 0)
             {
+                if (!usuario.Ativo)
+                {
+                    Message = "Usuário inativo.";
+                    return Page();
+                }
+
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, UserName)
+                    new Claim(ClaimTypes.Name, UserName),
+                    new Claim("IsAdmin", usuario.Administrador ? "true" : "false")
                 };
 
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -56,5 +69,6 @@ namespace Projeto.Pages
 
             return Page();
         }
+
     }
 }

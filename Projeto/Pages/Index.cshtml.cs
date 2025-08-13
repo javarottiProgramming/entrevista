@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -11,6 +12,7 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Projeto.Pages
@@ -34,6 +36,13 @@ namespace Projeto.Pages
         public void OnGet()
         {
             this.Tarefas = _crudService.GetAll();
+
+            var claims = User.Claims;
+            string nome = claims.FirstOrDefault(claims => claims.Type == ClaimTypes.Name).Value;
+            if (nome != null)
+            {
+                ViewData["NomeUsuario"] = nome;
+            }
         }
 
         public ActionResult OnPost()

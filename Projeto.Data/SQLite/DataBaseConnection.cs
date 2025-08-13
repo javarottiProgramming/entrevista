@@ -116,10 +116,8 @@ namespace Projeto.Data.SQLite
 
             if (!migrations.Contains("seed2"))
             {
-
-
                 string sql = "INSERT INTO usuario (login, senha, nome, administrador, ativo) " +
-                    "Values (@Login, @Senha, @Nome, @Administrador, @Ativo);";
+                                    "Values (@Login, @Senha, @Nome, @Administrador, @Ativo);";
 
                 connection.Execute(sql,
                     new[]

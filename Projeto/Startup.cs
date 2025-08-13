@@ -42,7 +42,8 @@ namespace Projeto
             {
                 options.Conventions.AuthorizeFolder("/");
                 options.Conventions.AllowAnonymousToPage("/Login");
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+                options.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());
+            });
 
             services.AddScoped<ICrudService<Tarefa>, TarefaService>();
             services.AddScoped<ICrudService<Cliente>, ClienteService>();

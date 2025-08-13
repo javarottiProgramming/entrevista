@@ -5,6 +5,7 @@ using Projeto.Core.Entity;
 using Projeto.Core.Infrastructure.Database;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Linq;
 
 namespace Projeto.Pages.Usuarios
 {
@@ -24,6 +25,12 @@ namespace Projeto.Pages.Usuarios
 
         public void OnGet()
         {
+            bool admin = User.Claims.FirstOrDefault(claims => claims.Type == "IsAdmin").Value.Equals("true");
+            if (!admin)
+            {
+                Response.Redirect("/");
+            }
+
             this.Usuarios = _crudService.GetAll();
         }
     }
